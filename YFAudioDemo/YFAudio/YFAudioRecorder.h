@@ -10,15 +10,21 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-typedef enum
-{
-	RecorderErrorNone = 0,
-	RecorderErrorStart = 1,
-	RecorderErrorFinish = 2,
-	RecorderErrorEncode = 3,
+typedef NS_ENUM(NSInteger, RecorderError) {
+	RecorderErrorNone     = 0,
+	RecorderErrorStart    = 1,
+	RecorderErrorFinish   = 2,
+	RecorderErrorEncode   = 3,
 	RecorderErrorTooShort = 4,
 	RecorderErrorTooLong  = 5
-}RecorderError;
+};
+
+typedef NS_ENUM(NSInteger, YFRecordPermission) {
+	YFRecordPermissionNone         = 0,
+	YFRecordPermissionUndetermined = 1,
+	YFRecordPermissionDenied       = 2,
+	YFRecordPermissionGranted      = 3
+};
 
 @protocol YFAudioRecorderDelegate <NSObject>
 @optional
@@ -35,6 +41,7 @@ typedef enum
 @property(nonatomic, assign)BOOL enableMeters;
 @property(nonatomic, assign)BOOL enableLength;
 @property(nonatomic, assign)BOOL isSpeakerMode;
+@property(nonatomic, assign)YFRecordPermission recordPermission;
 
 + (YFAudioRecorder *)shareRecorder;
 + (void)setMaxVoiceLength:(NSInteger)length;

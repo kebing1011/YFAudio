@@ -19,6 +19,7 @@
 		34E1AC041A57DA6200CFD656 /* YFAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E1ABFB1A57DA6200CFD656 /* YFAudioManager.m */; };
 		34E1AC051A57DA6200CFD656 /* YFAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E1ABFD1A57DA6200CFD656 /* YFAudioPlayer.m */; };
 		34E1AC061A57DA6200CFD656 /* YFAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E1ABFF1A57DA6200CFD656 /* YFAudioRecorder.m */; };
+		34ED04D91B55EAE900AA7CC8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34ED04D81B55EAE900AA7CC8 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		34E1ABFD1A57DA6200CFD656 /* YFAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFAudioPlayer.m; sourceTree = "<group>"; };
 		34E1ABFE1A57DA6200CFD656 /* YFAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFAudioRecorder.h; sourceTree = "<group>"; };
 		34E1ABFF1A57DA6200CFD656 /* YFAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFAudioRecorder.m; sourceTree = "<group>"; };
+		34ED04D81B55EAE900AA7CC8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		34E1ABC91A57DA3900CFD656 /* YFAudioDemo */ = {
 			isa = PBXGroup;
 			children = (
+				34ED04D81B55EAE900AA7CC8 /* Default-568h@2x.png */,
 				34E1ABCE1A57DA3900CFD656 /* AppDelegate.h */,
 				34E1ABCF1A57DA3900CFD656 /* AppDelegate.m */,
 				34E1ABD11A57DA3900CFD656 /* ViewController.h */,
@@ -241,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34E1ABD81A57DA3900CFD656 /* Images.xcassets in Resources */,
+				34ED04D91B55EAE900AA7CC8 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +452,7 @@
 				34E1ABEC1A57DA3900CFD656 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		34E1ABED1A57DA3900CFD656 /* Build configuration list for PBXNativeTarget "YFAudioDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -456,6 +461,7 @@
 				34E1ABEF1A57DA3900CFD656 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

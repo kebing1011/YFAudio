@@ -17,7 +17,7 @@ static YFAudioCache *instance = nil;
 
 #pragma mark NSObject
 
-- (id)init
+- (instancetype)init
 {
     if ((self = [super init]))
     {
@@ -26,7 +26,7 @@ static YFAudioCache *instance = nil;
 		
         // Init the disk cache
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        diskCachePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Cache"];
+        diskCachePath = [paths[0] stringByAppendingPathComponent:@"Cache"];
 		
         if (![[NSFileManager defaultManager] fileExistsAtPath:diskCachePath])
         {
@@ -85,8 +85,8 @@ static YFAudioCache *instance = nil;
     // Can't use defaultManager another thread
     NSFileManager *fileManager = [[NSFileManager alloc] init];
 	
-    NSString *key = [keyAndData objectAtIndex:0];
-    NSData *data = [keyAndData count] > 1 ? [keyAndData objectAtIndex:1] : nil;
+    NSString *key = keyAndData[0];
+    NSData *data = [keyAndData count] > 1 ? keyAndData[1] : nil;
 	
     if (data)
     {
@@ -96,14 +96,14 @@ static YFAudioCache *instance = nil;
 
 - (void)notifyDelegate:(NSDictionary *)arguments
 {
-    NSString *key = [arguments objectForKey:@"key"];
-    id <YFAudioCacheDelegate> delegate = [arguments objectForKey:@"delegate"];
-    NSDictionary *info = [arguments objectForKey:@"userInfo"];
-    NSData *data = [arguments objectForKey:@"data"];
+    NSString *key = arguments[@"key"];
+    id <YFAudioCacheDelegate> delegate = arguments[@"delegate"];
+    NSDictionary *info = arguments[@"userInfo"];
+    NSData *data = arguments[@"data"];
 	
     if (data)
     {
-        [memCache setObject:data forKey:key];
+        memCache[key] = data;
 		
         if ([delegate respondsToSelector:@selector(audioCache:didFindAudio:forKey:userInfo:)])
         {
@@ -121,13 +121,13 @@ static YFAudioCache *instance = nil;
 
 - (void)queryDiskCacheOperation:(NSDictionary *)arguments
 {
-    NSString *key = [arguments objectForKey:@"key"];
+    NSString *key = arguments[@"key"];
     NSMutableDictionary *mutableArguments = [arguments mutableCopy];
 	
     NSData* data = [NSData dataWithContentsOfFile:[self cachePathForKey:key]];
 	if (data)
 	{
-		[mutableArguments setObject:data forKey:@"data"];
+		mutableArguments[@"data"] = data;
 	}
 	
     [self performSelectorOnMainThread:@selector(notifyDelegate:) withObject:mutableArguments waitUntilDone:NO];
@@ -142,18 +142,18 @@ static YFAudioCache *instance = nil;
         return;
     }
     
-    [memCache setObject:data forKey:key];
+    memCache[key] = data;
 	
     if (toDisk)
     {
         NSArray *keyWithData;
         if (data)
         {
-            keyWithData = [NSArray arrayWithObjects:key, data, nil];
+            keyWithData = @[key, data];
         }
         else
         {
-            keyWithData = [NSArray arrayWithObjects:key, nil];
+            keyWithData = @[key];
         }
 		
         NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
@@ -181,14 +181,14 @@ static YFAudioCache *instance = nil;
         return nil;
     }
 	
-    NSData* data = [memCache objectForKey:key];
+    NSData* data = memCache[key];
 	
     if (!data && fromDisk)
     {
         data = [NSData dataWithContentsOfFile:[self cachePathForKey:key]];
         if (data)
         {
-            [memCache setObject:data forKey:key];
+            memCache[key] = data;
         }
     }
 	
@@ -212,7 +212,7 @@ static YFAudioCache *instance = nil;
     }
 	
     // First check the in-memory cache...
-    NSData *data = [memCache objectForKey:key];
+    NSData *data = memCache[key];
     if (data)
     {
         // ...notify delegate immediately, no need to go async
@@ -224,11 +224,11 @@ static YFAudioCache *instance = nil;
     }
 	
     NSMutableDictionary *arguments = [NSMutableDictionary dictionaryWithCapacity:3];
-    [arguments setObject:key forKey:@"key"];
-    [arguments setObject:delegate forKey:@"delegate"];
+    arguments[@"key"] = key;
+    arguments[@"delegate"] = delegate;
     if (info)
     {
-        [arguments setObject:info forKey:@"userInfo"];
+        arguments[@"userInfo"] = info;
     }
     NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
 																			selector:@selector(queryDiskCacheOperation:)

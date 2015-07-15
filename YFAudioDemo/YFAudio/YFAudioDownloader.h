@@ -32,8 +32,8 @@
 @property (nonatomic, retain) id userInfo;
 @property (nonatomic, readwrite) BOOL lowPriority;
 
-+ (id)downloaderWithURL:(NSURL *)url delegate:(id<YFAudioDownloaderDelegate>)delegate userInfo:(id)userInfo;
-+ (id)downloaderWithURL:(NSURL *)url delegate:(id<YFAudioDownloaderDelegate>)delegate;
++ (instancetype)downloaderWithURL:(NSURL *)url delegate:(id<YFAudioDownloaderDelegate>)delegate userInfo:(id)userInfo;
++ (instancetype)downloaderWithURL:(NSURL *)url delegate:(id<YFAudioDownloaderDelegate>)delegate;
 
 - (void)start;
 - (void)cancel;

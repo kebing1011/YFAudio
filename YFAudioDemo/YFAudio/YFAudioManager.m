@@ -25,7 +25,7 @@ static YFAudioManager *instance;
 
 @implementation YFAudioManager
 
-- (id)init
+- (instancetype)init
 {
     if ((self = [super init]))
     {
@@ -69,10 +69,8 @@ static YFAudioManager *instance;
     // Check the on-disk cache async so we don't block the main thread
     [cacheDelegates addObject:delegate];
     [cacheURLs addObject:url];
-    NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
-                          delegate, @"delegate",
-                          url, @"url",
-                          nil];
+    NSDictionary *info = @{@"delegate": delegate,
+                          @"url": url};
     [[YFAudioCache sharedAudioCache] queryDiskCacheForKey:[self cacheKeyForURL:url] delegate:self userInfo:info];
 }
 
@@ -87,7 +85,7 @@ static YFAudioManager *instance;
 	
     while ((idx = [downloadDelegates indexOfObjectIdenticalTo:delegate]) != NSNotFound)
     {
-        YFAudioDownloader *downloader = [downloaders objectAtIndex:idx];
+        YFAudioDownloader *downloader = downloaders[idx];
 		
         [downloadInfo removeObjectAtIndex:idx];
         [downloadDelegates removeObjectAtIndex:idx];
@@ -109,10 +107,10 @@ static YFAudioManager *instance;
     for (NSInteger idx = (NSInteger)[downloaders count] - 1; idx >= 0; idx--)
     {
         NSUInteger uidx = (NSUInteger)idx;
-        YFAudioDownloader *aDownloader = [downloaders objectAtIndex:uidx];
+        YFAudioDownloader *aDownloader = downloaders[uidx];
         if (aDownloader == downloader)
         {
-            id<YFAudioManagerDelegate> delegate = [downloadDelegates objectAtIndex:uidx];
+            id<YFAudioManagerDelegate> delegate = downloadDelegates[uidx];
             if (downloader.audioData)
             {
                 if ([delegate respondsToSelector:@selector(audioManager:didFinishWithAudio:)])
@@ -149,10 +147,10 @@ static YFAudioManager *instance;
     for (NSInteger idx = (NSInteger)[downloaders count] - 1; idx >= 0; idx--)
     {
         NSUInteger uidx = (NSUInteger)idx;
-        YFAudioDownloader *aDownloader = [downloaders objectAtIndex:uidx];
+        YFAudioDownloader *aDownloader = downloaders[uidx];
         if (aDownloader == downloader)
         {
-            id<YFAudioDownloaderDelegate> delegate = [downloadDelegates objectAtIndex:uidx];
+            id<YFAudioDownloaderDelegate> delegate = downloadDelegates[uidx];
 			
             if ([delegate respondsToSelector:@selector(audioManager:didFailWithError:)])
             {
@@ -174,7 +172,7 @@ static YFAudioManager *instance;
     NSUInteger idx;
     for (idx = 0; idx < [cacheDelegates count]; idx++)
     {
-        if ([cacheDelegates objectAtIndex:idx] == delegate && [[cacheURLs objectAtIndex:idx] isEqual:url])
+        if (cacheDelegates[idx] == delegate && [cacheURLs[idx] isEqual:url])
         {
             return idx;
         }
@@ -186,8 +184,8 @@ static YFAudioManager *instance;
 #pragma mark =========
 - (void)audioCache:(YFAudioCache *)audioCache didFindAudio:(NSData *)data forKey:(NSString *)key userInfo:(NSDictionary *)info
 {
-	NSURL *url = [info objectForKey:@"url"];
-    id<YFAudioManagerDelegate> delegate = [info objectForKey:@"delegate"];
+	NSURL *url = info[@"url"];
+    id<YFAudioManagerDelegate> delegate = info[@"delegate"];
 	
     NSUInteger idx = [self indexOfDelegate:delegate waitingForURL:url];
     if (idx == NSNotFound)
@@ -208,8 +206,8 @@ static YFAudioManager *instance;
 
 - (void)audioCache:(YFAudioCache *)audioCache didNotFindAudioForKey:(NSString *)key userInfo:(NSDictionary *)info
 {
-	NSURL *url = [info objectForKey:@"url"];
-    id<YFAudioManagerDelegate> delegate = [info objectForKey:@"delegate"];
+	NSURL *url = info[@"url"];
+    id<YFAudioManagerDelegate> delegate = info[@"delegate"];
 	
     NSUInteger idx = [self indexOfDelegate:delegate waitingForURL:url];
     if (idx == NSNotFound)
@@ -222,12 +220,12 @@ static YFAudioManager *instance;
     [cacheURLs removeObjectAtIndex:idx];
 	
     // Share the same downloader for identical URLs so we don't download the same URL several times
-    YFAudioDownloader *downloader = [downloaderForURL objectForKey:url];
+    YFAudioDownloader *downloader = downloaderForURL[url];
 	
     if (!downloader)
     {
         downloader = [YFAudioDownloader downloaderWithURL:url delegate:self userInfo:info];
-        [downloaderForURL setObject:downloader forKey:url];
+        downloaderForURL[url] = downloader;
     }
 
     [downloadInfo addObject:info];

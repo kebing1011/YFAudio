@@ -97,7 +97,7 @@ static NSInteger minVoiceLength = 1;
 	}
 }
 
-- (id)init
+- (instancetype)init
 {
 	self = [super init];
 	if (self)
@@ -106,8 +106,41 @@ static NSInteger minVoiceLength = 1;
 		[self.thread start];
 		self.enableLength = YES;
 		self.enableMeters = YES;
+		
+		[self checkRecordPermiss];
 	}
 	return self;
+}
+
+- (void)checkRecordPermiss
+{
+	//for ios8.0+
+	if ([AVAudioSession instancesRespondToSelector:@selector(recordPermission)])
+	{
+		AVAudioSessionRecordPermission permission = [AVAudioSession sharedInstance].recordPermission;
+		switch (permission)
+		{
+			case AVAudioSessionRecordPermissionUndetermined:
+			self.recordPermission = YFRecordPermissionUndetermined;
+			break;
+			case AVAudioSessionRecordPermissionDenied:
+			self.recordPermission = YFRecordPermissionDenied;
+			break;
+			case AVAudioSessionRecordPermissionGranted:
+			self.recordPermission = YFRecordPermissionGranted;
+			break;
+			default:
+			break;
+		}
+	}
+	else if ([AVAudioSession instancesRespondToSelector:@selector(requestRecordPermission:)])
+	{
+		self.recordPermission = YFRecordPermissionNone;
+	}
+	else
+	{
+		self.recordPermission = YFRecordPermissionGranted;
+	}
 }
 
 - (NSDictionary *)recordSettings
@@ -115,10 +148,10 @@ static NSInteger minVoiceLength = 1;
 	if (_recordSettings == nil)
 	{
 		NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] initWithCapacity:4];
-		[recordSettings setObject:[NSNumber numberWithInt: kAudioFormatLinearPCM] forKey: AVFormatIDKey];
-		[recordSettings setObject:[NSNumber numberWithFloat:8000.0] forKey: AVSampleRateKey];
-		[recordSettings setObject:[NSNumber numberWithInt:1] forKey:AVNumberOfChannelsKey];
-		[recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+		recordSettings[AVFormatIDKey] = @(kAudioFormatLinearPCM);
+		recordSettings[AVSampleRateKey] = @8000.0f;
+		recordSettings[AVNumberOfChannelsKey] = @1;
+		recordSettings[AVLinearPCMBitDepthKey] = @16;
 		_recordSettings = [NSDictionary dictionaryWithDictionary:recordSettings];
 	}
 	return _recordSettings;
@@ -198,17 +231,40 @@ static NSInteger minVoiceLength = 1;
 
 - (void)checkRecordAvailableBlock:(void(^)(BOOL available))block
 {
+	if (self.recordPermission == YFRecordPermissionGranted)
+	{
+		block(YES);
+		return;
+	}
+	
+	if (self.recordPermission == YFRecordPermissionDenied)
+	{
+		block(NO);
+		return;
+	}
+	
+	
 	AVAudioSession *audioSession = [AVAudioSession sharedInstance];
 	
 	if ([audioSession respondsToSelector:@selector(requestRecordPermission:)]) {
-        
-        [audioSession requestRecordPermission:^(BOOL available) {
-            block(available);
-        }];
-    }
-	else
-	{
-		block(YES);
+		
+		[audioSession requestRecordPermission:^(BOOL available) {
+			block(available);
+			if (available)
+			{
+				self.recordPermission = YFRecordPermissionGranted;
+			}
+			else
+			{
+				self.recordPermission = YFRecordPermissionDenied;
+			}
+		}];
+		
+		//异步来计算是不是
+		if (self.recordPermission == YFRecordPermissionNone)
+		{
+			self.recordPermission = YFRecordPermissionUndetermined;
+		}
 	}
 }
 
@@ -216,7 +272,7 @@ static NSInteger minVoiceLength = 1;
 - (void)doStartRecordTask
 {
 	AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-
+	
 	BOOL isSpeakerMode = self.isSpeakerMode;
 	if (isSpeakerMode == YES)
 	{
@@ -296,7 +352,7 @@ static NSInteger minVoiceLength = 1;
 	
 	self.lowPassResults = pow(10, (0.05 * [self.recorder peakPowerForChannel:0]));
 	
-	[self performSelectorOnMainThread:@selector(notifyDelegateRecordingWithMeters:) withObject:[NSNumber numberWithFloat:self.lowPassResults] waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(notifyDelegateRecordingWithMeters:) withObject:@(self.lowPassResults) waitUntilDone:NO];
 }
 
 - (void)updateLength
@@ -313,7 +369,7 @@ static NSInteger minVoiceLength = 1;
 	
 	self.voiceLength = nearbyint(self.recorder.currentTime);
 	
-	[self performSelectorOnMainThread:@selector(notifyDelegateRecordingWithLength:) withObject:[NSNumber numberWithFloat:self.voiceLength] waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(notifyDelegateRecordingWithLength:) withObject:@(self.voiceLength) waitUntilDone:NO];
 }
 
 
@@ -367,7 +423,7 @@ static NSInteger minVoiceLength = 1;
 
 - (void)notifyDelegateInMainThreadWith:(RecorderError )error
 {
-	[self performSelectorOnMainThread:@selector(notifyDelegateRecordFailed:) withObject:[NSNumber numberWithInteger:error] waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(notifyDelegateRecordFailed:) withObject:@(error) waitUntilDone:NO];
 }
 
 - (void)doStartEncodeTask
@@ -391,7 +447,7 @@ static NSInteger minVoiceLength = 1;
 	self.voiceLength = MIN([YFAudioRecorder maxVoiceLength], self.voiceLength);
 	self.voiceLength = MAX([YFAudioRecorder minVoiceLength], self.voiceLength);
 	
-	NSNumber* lengthNumber = [NSNumber numberWithInteger:self.voiceLength];
+	NSNumber* lengthNumber = @(self.voiceLength);
 	NSDictionary* info = @{@"filePath":filePath, @"length":lengthNumber};
 	
 	[self performSelectorOnMainThread:@selector(notifyDelegateRecordFinishedWithInfo:) withObject:info waitUntilDone:NO];
@@ -400,7 +456,7 @@ static NSInteger minVoiceLength = 1;
 - (NSString *)cachePathForMedia:(NSString *)fileName
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString* diskCachePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Cache"];
+	NSString* diskCachePath = [paths[0] stringByAppendingPathComponent:@"Cache"];
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath:diskCachePath])
 	{
@@ -446,7 +502,7 @@ static NSInteger minVoiceLength = 1;
 	else
 	{
 		[self notifyDelegateInMainThreadWith:RecorderErrorFinish];
-
+		
 	}
 	
 	self.recorder.delegate = nil;
@@ -459,7 +515,7 @@ static NSInteger minVoiceLength = 1;
 	[self notifyDelegateInMainThreadWith:RecorderErrorStart];
 	self.recorder.delegate = nil;
 	self.recorder = nil;
-
+	
 }
 
 @end

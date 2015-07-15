@@ -17,12 +17,12 @@
 
 #pragma mark Public Methods
 
-+ (id)downloaderWithURL:(NSURL *)url delegate:(id<YFAudioDownloaderDelegate>)delegate
++ (instancetype)downloaderWithURL:(NSURL *)url delegate:(id<YFAudioDownloaderDelegate>)delegate
 {
     return [self downloaderWithURL:url delegate:delegate userInfo:nil];
 }
 
-+ (id)downloaderWithURL:(NSURL *)url delegate:(id<YFAudioDownloaderDelegate>)delegate userInfo:(id)userInfo
++ (instancetype)downloaderWithURL:(NSURL *)url delegate:(id<YFAudioDownloaderDelegate>)delegate userInfo:(id)userInfo
 {
     YFAudioDownloader *downloader = [[YFAudioDownloader alloc] init];
     downloader.url = url;
