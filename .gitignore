@@ -1,0 +1,10 @@
+#ignore system files
+.*
+!.gitignore
+build/
+
+#ignore Xcode part proj files
+
+YFAudioDemo.xcodeproj/.*
+YFAudioDemo.xcodeproj/project.xcworkspace/
+YFAudioDemo.xcodeproj/xcuserdata/
