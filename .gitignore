@@ -2,6 +2,7 @@
 .*
 !.gitignore
 build/
+Products/
 
 #ignore Xcode part proj files
 
