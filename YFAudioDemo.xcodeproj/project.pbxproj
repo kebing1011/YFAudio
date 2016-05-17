@@ -11,7 +11,6 @@
 		34E1ABD01A57DA3900CFD656 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E1ABCF1A57DA3900CFD656 /* AppDelegate.m */; };
 		34E1ABD31A57DA3900CFD656 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E1ABD21A57DA3900CFD656 /* ViewController.m */; };
 		34E1ABD81A57DA3900CFD656 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34E1ABD71A57DA3900CFD656 /* Images.xcassets */; };
-		34E1ABE71A57DA3900CFD656 /* YFAudioDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E1ABE61A57DA3900CFD656 /* YFAudioDemoTests.m */; };
 		34E1AC001A57DA6200CFD656 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E1ABF31A57DA6200CFD656 /* libopencore-amrnb.a */; };
 		34E1AC011A57DA6200CFD656 /* YFAudioCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E1ABF51A57DA6200CFD656 /* YFAudioCache.m */; };
 		34E1AC021A57DA6200CFD656 /* YFAudioConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E1ABF71A57DA6200CFD656 /* YFAudioConvert.m */; };
@@ -22,16 +21,6 @@
 		34ED04D91B55EAE900AA7CC8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34ED04D81B55EAE900AA7CC8 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		34E1ABE11A57DA3900CFD656 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 34E1ABBF1A57DA3900CFD656 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 34E1ABC61A57DA3900CFD656;
-			remoteInfo = YFAudioDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		34E1ABC71A57DA3900CFD656 /* YFAudioDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YFAudioDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34E1ABCB1A57DA3900CFD656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,9 +30,6 @@
 		34E1ABD11A57DA3900CFD656 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		34E1ABD21A57DA3900CFD656 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		34E1ABD71A57DA3900CFD656 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		34E1ABE01A57DA3900CFD656 /* YFAudioDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YFAudioDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		34E1ABE51A57DA3900CFD656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		34E1ABE61A57DA3900CFD656 /* YFAudioDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YFAudioDemoTests.m; sourceTree = "<group>"; };
 		34E1ABF11A57DA6200CFD656 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
 		34E1ABF21A57DA6200CFD656 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
 		34E1ABF31A57DA6200CFD656 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
@@ -71,13 +57,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		34E1ABDD1A57DA3900CFD656 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -86,7 +65,6 @@
 			children = (
 				34E1ABF01A57DA6200CFD656 /* YFAudio */,
 				34E1ABC91A57DA3900CFD656 /* YFAudioDemo */,
-				34E1ABE31A57DA3900CFD656 /* YFAudioDemoTests */,
 				34E1ABC81A57DA3900CFD656 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -95,7 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				34E1ABC71A57DA3900CFD656 /* YFAudioDemo.app */,
-				34E1ABE01A57DA3900CFD656 /* YFAudioDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,23 +96,6 @@
 			children = (
 				34E1ABCB1A57DA3900CFD656 /* Info.plist */,
 				34E1ABCC1A57DA3900CFD656 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		34E1ABE31A57DA3900CFD656 /* YFAudioDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				34E1ABE61A57DA3900CFD656 /* YFAudioDemoTests.m */,
-				34E1ABE41A57DA3900CFD656 /* Supporting Files */,
-			);
-			path = YFAudioDemoTests;
-			sourceTree = "<group>";
-		};
-		34E1ABE41A57DA3900CFD656 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				34E1ABE51A57DA3900CFD656 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -183,39 +143,17 @@
 			productReference = 34E1ABC71A57DA3900CFD656 /* YFAudioDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		34E1ABDF1A57DA3900CFD656 /* YFAudioDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 34E1ABED1A57DA3900CFD656 /* Build configuration list for PBXNativeTarget "YFAudioDemoTests" */;
-			buildPhases = (
-				34E1ABDC1A57DA3900CFD656 /* Sources */,
-				34E1ABDD1A57DA3900CFD656 /* Frameworks */,
-				34E1ABDE1A57DA3900CFD656 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				34E1ABE21A57DA3900CFD656 /* PBXTargetDependency */,
-			);
-			name = YFAudioDemoTests;
-			productName = YFAudioDemoTests;
-			productReference = 34E1ABE01A57DA3900CFD656 /* YFAudioDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		34E1ABBF1A57DA3900CFD656 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = mao;
 				TargetAttributes = {
 					34E1ABC61A57DA3900CFD656 = {
 						CreatedOnToolsVersion = 6.1.1;
-					};
-					34E1ABDF1A57DA3900CFD656 = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = 34E1ABC61A57DA3900CFD656;
 					};
 				};
 			};
@@ -233,7 +171,6 @@
 			projectRoot = "";
 			targets = (
 				34E1ABC61A57DA3900CFD656 /* YFAudioDemo */,
-				34E1ABDF1A57DA3900CFD656 /* YFAudioDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -245,13 +182,6 @@
 			files = (
 				34E1ABD81A57DA3900CFD656 /* Images.xcassets in Resources */,
 				34ED04D91B55EAE900AA7CC8 /* Default-568h@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		34E1ABDE1A57DA3900CFD656 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,23 +204,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		34E1ABDC1A57DA3900CFD656 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				34E1ABE71A57DA3900CFD656 /* YFAudioDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		34E1ABE21A57DA3900CFD656 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 34E1ABC61A57DA3900CFD656 /* YFAudioDemo */;
-			targetProxy = 34E1ABE11A57DA3900CFD656 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		34E1ABE81A57DA3900CFD656 /* Debug */ = {
@@ -313,6 +227,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -327,7 +242,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -362,7 +277,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -373,13 +288,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = YFAudioDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YFAudioDemo/YFAudio",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mao.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -388,48 +305,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = YFAudioDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YFAudioDemo/YFAudio",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mao.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		34E1ABEE1A57DA3900CFD656 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = YFAudioDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YFAudioDemo.app/YFAudioDemo";
-			};
-			name = Debug;
-		};
-		34E1ABEF1A57DA3900CFD656 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = YFAudioDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YFAudioDemo.app/YFAudioDemo";
 			};
 			name = Release;
 		};
@@ -450,15 +335,6 @@
 			buildConfigurations = (
 				34E1ABEB1A57DA3900CFD656 /* Debug */,
 				34E1ABEC1A57DA3900CFD656 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		34E1ABED1A57DA3900CFD656 /* Build configuration list for PBXNativeTarget "YFAudioDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				34E1ABEE1A57DA3900CFD656 /* Debug */,
-				34E1ABEF1A57DA3900CFD656 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -64,7 +64,7 @@
 {
 	if (!bt.selected && [[NSFileManager defaultManager] fileExistsAtPath:self.filePath])
 	{
-		[[YFAudioPlayer sharePlayer] startPlayAudioWithPath:self.filePath delegate:self isSpeakerMode:YES];
+		[[YFAudioPlayer sharePlayer] startPlayAudioWithPath:self.filePath delegate:self];
 	}
 	else
 	{
@@ -82,7 +82,7 @@
 {
 	NSLog(@"%s", __func__);
 }
-- (void)didRecordFailedWithError:(RecorderError )error
+- (void)didRecordFailedWithError:(YFRecorderError )error
 {
 	
 }
@@ -90,7 +90,7 @@
 {
 	NSLog(@"%s, meters:%@", __func__,  @(meters));
 }
-- (void)didRecordingWithLength:(NSInteger )length
+- (void)didRecordingWithLength:(NSTimeInterval )length
 {
 	NSLog(@"%s, length:%@", __func__,  @(length));
 }
